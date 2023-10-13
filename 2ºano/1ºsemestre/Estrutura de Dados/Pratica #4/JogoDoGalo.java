@@ -6,11 +6,17 @@ public class JogoDoGalo {
         int n = scanner.nextInt();
         char[][] board = new char[n][n];
 
-        // Preenche o tabuleiro
+        // Preenche o tabuleiro com validação
         for (int i = 0; i < n; i++) {
             String row = scanner.next();
             for (int j = 0; j < n; j++) {
-                board[i][j] = row.charAt(j);
+                char c = row.charAt(j);
+                if (c == 'X' || c == 'O' || c == '.') {
+                    board[i][j] = c;
+                } else {
+                    System.out.println("Entrada inválida: o tabuleiro deve conter apenas 'X', 'O' ou '.'.");
+                    return;
+                }
             }
         }
 
@@ -71,13 +77,19 @@ public class JogoDoGalo {
             return "Ganhou o " + antiDiagonalChar;
         }
 
-        // Verifica se o jogo está completo ou incompleto
+        // Verifica se o jogo está completo
+        boolean isComplete = true; // Flag para indicar se o jogo está completo
+
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 if (board[i][j] == '.') {
-                    return "Jogo incompleto";
+                    isComplete = false; // Se houver pelo menos um '.', o jogo não está completo
                 }
             }
+        }
+
+        if (!isComplete) {
+            return "Incompleto";
         }
 
         // Se nenhum jogador ganhou e o jogo está completo, é um empate
