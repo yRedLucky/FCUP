@@ -38,18 +38,18 @@ public class JogoDoGalo {
             boolean colWin = true;
 
             for (int j = 1; j < n; j++) {
-                if (board[i][j] != rowChar) {
+                if (board[i][j] != rowChar || board[i][j] == '.') {
                     rowWin = false;
                 }
-                if (board[j][i] != colChar) {
+                if (board[j][i] != colChar || board[j][i] == '.') {
                     colWin = false;
                 }
             }
 
-            if (rowWin) {
+            if (rowWin && rowChar != '.') {
                 return "Ganhou o " + rowChar;
             }
-            if (colWin) {
+            if (colWin && colChar != '.') {
                 return "Ganhou o " + colChar;
             }
         }
@@ -62,37 +62,30 @@ public class JogoDoGalo {
         boolean antiDiagonalWin = true;
 
         for (int i = 1; i < n; i++) {
-            if (board[i][i] != mainDiagonalChar) {
+            if (board[i][i] != mainDiagonalChar || board[i][i] == '.') {
                 mainDiagonalWin = false;
             }
-            if (board[i][n - 1 - i] != antiDiagonalChar) {
+            if (board[i][n - 1 - i] != antiDiagonalChar || board[i][n - 1 - i] == '.') {
                 antiDiagonalWin = false;
             }
         }
 
-        if (mainDiagonalWin) {
+        if (mainDiagonalWin && mainDiagonalChar != '.') {
             return "Ganhou o " + mainDiagonalChar;
         }
-        if (antiDiagonalWin) {
+        if (antiDiagonalWin && antiDiagonalChar != '.') {
             return "Ganhou o " + antiDiagonalChar;
         }
 
-        // Verifica se o jogo está completo
-        boolean isComplete = true; // Flag para indicar se o jogo está completo
-
+        // Se nenhum jogador ganhou e o jogo está completo, é um empate
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 if (board[i][j] == '.') {
-                    isComplete = false; // Se houver pelo menos um '.', o jogo não está completo
+                    return "Incompleto";
                 }
             }
         }
 
-        if (!isComplete) {
-            return "Incompleto";
-        }
-
-        // Se nenhum jogador ganhou e o jogo está completo, é um empate
         return "Empate";
     }
 }
