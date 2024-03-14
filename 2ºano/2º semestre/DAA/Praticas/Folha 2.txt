@@ -1,0 +1,53 @@
+1.
+    a) Quando estamos a testar a condição na linha 2 pela k-esima vez, com k >= 1, o valor de "j" e k e para todo o i pertencente a {1, ..., k-1} ai = bi.
+
+    Resposta do chat gpt:
+
+    No início do ciclo while (linha 2), o valor de j é definido como 1, então estamos testando a condição na linha 2 pela primeira vez. Nesse momento, o invariante do ciclo é
+    verdadeiro porque k = 1 e ainda não fizemos nenhuma comparação entre os elementos de v e w.
+    
+    Durante cada iteração do ciclo while, aumentamos o valor de j em 1 (linha 3), o que significa que estamos avançando para o próximo elemento em v e w para comparação.
+    
+    A afirmação "para todo o i pertencente a {1, ..., k-1}, ai = bi" significa que todos os elementos de v até o índice k-1 são iguais aos elementos correspondentes de w até
+    o índice k-1. Isso é consistente com a ideia de que estamos testando se v[j] é igual a w[j], mas para todos os elementos anteriores (até o índice k-1), a igualdade já foi
+    estabelecida.
+    
+    Portanto, quando estamos testando a condição na linha 2 pela k-ésima vez, o valor de "j" é k e para todo o i pertencente a {1, ..., k-1}, ai = bi, o que é exatamente o
+    invariante proposto. Isso nos permite concluir que a função está correta, pois mantém a propriedade esperada durante todo o ciclo.
+   
+    b) Prova de invariante (por indução)
+    - Caso base
+    Para k = 1, temos que j = 1 = k e para todo o i pertencente a {1,...,0} ai=bi (é trialmente verdade pois {1,...,0} é a seq. vazia)
+    - Passo indutivo
+    Assumindo que a propriedadade era válida numa iteração k, com k>1, temos que:
+            - j=k
+            - Para todo o i pertencente a {1,...,k-1} ai=bi
+    Se o ciclo não terminou, temos que aj=bj, isto é ak=bk e ak =/ (diferente de) 0
+    Logo, para todo o i pertencente a {1,...,k-1} ai=bi
+    Na linha 3, j é incrementado em 1, logo j=k+1.
+    Isto corresponde ao que a propriedadade estabelece para k+1, logo a prop é válida na iteração k+1, assumindo que a mesma era válida numa iteração k.
+    Logo, por indução, para todo o k pertencente a N a prop é válida.
+
+    - Paragem de ciclo
+    O ciclo termina numa iteração k, com k>=1, se ak=/ bk ou ak=0.
+    Caso o ciclo tenha terminado pq ak=/bk, então k é a primeira posição onde os arrays diferem (pq, pelo inv,para todo o i pertencente a {1,...,k-1} ai=bi). Se vj>wj então v é maior
+    lex que w e vj-wj > 0, então é retornado a resposta correta. Caso wj>vj, ..."...
+    (Nota: este ramo engloba os casos em que |w|<|v|)
+    Caso o ciclo termine pq ak=0, então chegamos ao fim do array v e para todo o i pertencente a {1,...,k-1} ai=bi.
+    Se wk=0, então chegamos tb ao fim do array w e para todo o i pertencente a {1,...,k-1} ai=bi, ou seja os arrays são iguais e vk-wk=0, pelo que o alg. retorna
+    a resposta correta. Se wk>0, então w é lex maior que v(pois para todo o i pertencente a {1,...,k-1} ai=bi; e wk>vk) e vk-wk<0,logo o alg. retorna a resposta correta.
+    Logo, em todos os casos,...
+
+    c)
+    Inst | #execs        *Depende do input
+      1  |    1
+      2  |    *          Inst 2: MC : 1        PC: min(n,m) + 1
+      3  |    *          Inst 3: MC : 0        PC: min(n,m)
+      4  |    1
+
+    MC <= T(n,m) <= PC
+    PC = C1 + C5 + (min(n,m)+1)(C2+C3) + min(n,m)C4
+    MC = C1 + C5 + C2
+    Seja t = min (n,m)
+        T(n,m) pertence a Ω(1)
+        T(n,m) pertence a O(t)

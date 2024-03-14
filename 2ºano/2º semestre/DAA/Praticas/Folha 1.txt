@@ -1,0 +1,60 @@
+1.
+    a) Quando vamos testar a condição de paragem de ciclo pela k-ésima vez:
+    - n = v0 (Continua com o mesmo valor inicial indicado pelo usuário no início do programa, pois não houve nenhuma modificação ao longo do processo)
+    - contagem = k
+    - máximo = max (v1, ..., vk)
+    - valor = { não existe se k = 1
+              { vk se k > 1
+    
+    b)
+    - Caso base:
+        Para k = 1, - n = v0
+                    - contagem = k = 1
+                    - maximo = max(v1,...,vk) = max(v1) = v1
+                    - valor não existe
+    
+    - Passo indutivo (Queremos mostrar que se a proposição era verdade na iteração k, então também é na iteração k+1)
+    -> Assumindo que na iteração k a prop. era verdade, temos que: n = v0; contagem = k; maximo = max(v1,...,vk); valor = vk
+    -> Na linha 5, "valor" fica com o valor v(k+1) 
+    -> Na linha 6/7, verificamos se valor > maximo , i.e. v(k+1) > max(v1,...,vk)
+       Caso seja, maximo = v(k+1) (e sabemos que vk+1 é de facto o maior elemento pois v(k+1) > max(v1,...,vk))
+       Caso contrário, maximo = max(v1,...,vk) = max(v1,...,vk,vk+1) (pois vk+1 < max(v1,...,vk))
+       Logo. em ambos os casos, maximo = max(v1,...,vk,vk+1)
+    -> Na linha 8, contagem = k é incrementado em 1, pelo que contagem = k+1
+    -> n não é alterado pelo que n = v0
+    -> Isto corresponde ao que a proposição estabelece para a iteração k+1
+    Logo, a prop. é válida pelo princípio de indução.
+
+    c) Complete a frase: O ciclo pára quando (a variável "contagem" atinge o valor de "n"). Portanto, tinham sido lidos (n - 1 valores) além de v0. De acordo com a 
+    propriedadade demonstrada, à saída do ciclo, o valor de maximo é (o maior valor entre os "n - 1" valores lidos além de "v0").Logo, o algoritmo escreve o
+    valor correto.
+
+    d)
+    • contagem < n:
+    - Melhor caso: 0 vezes (se v1 >= v2 >0 ... >= vn)
+    - Pior caso: n - 1 vezes (se v1 < v2 < ... < vn)
+    
+    • ler(valor):
+    - Melhor caso: n - 1 vezes
+    - Pior caso:
+    ...
+
+    e)
+ler(n);
+ler(maximo);
+contagem ← 1;
+cmax ← 1;  // Inicializa o contador para o máximo como 1, pois o máximo já foi encontrado uma vez.
+
+Enquanto (contagem < n) fazer
+    ler(valor);
+    Se (valor > maximo) então
+        maximo ← valor;
+        cmax ← 1;  // Se encontrarmos um novo máximo, reiniciamos o contador para o máximo.
+    Senão se (valor == maximo) então
+        cmax ← cmax + 1;  // Se o valor for igual ao máximo, incrementamos o contador do máximo.
+    contagem ← contagem + 1;
+
+escrever(maximo);
+escrever(cmax);  // Escreve o número de vezes que o máximo ocorreu na sequência.
+
+    f)
